@@ -16,7 +16,7 @@ uint8_t u8query; //!< pointer to message query
  */
 Modbus master(0,2,DERE); // this is master and RS-232 or USB-FTDI via software serial
 Modbus slave_1(1, 1, 11);
-// Modbus slave_3(10, 3, 0);
+Modbus slave_3(10, 3, 0);
 /**
  * This is an structe which contains a query to an slave device
  */
@@ -123,112 +123,6 @@ void telegram_16P()
 //   }
   // if (millis() > tempus)  io_poll();
  }
-// void modbus_up()
-// {
-//  switch( u8state ) {
-//   case 0: 
-//     if (millis() > u32wait) u8state++; // wait state
-//     break;
-//   case 1: 
-//     master.query( telegram[u8query] ); // send query (only once)
-//     // Serial.println("modbus_querry:"+String(u8query));
-//     u8state++;
-// 	u8query++;
-// 	if (u8query > id_t) u8query = 0;
-//     break;
-//   case 2:
-//     master.poll(); // check incoming messages
-//     if (master.getState() == COM_IDLE) {
-//       u8state = 0;
-//       u32wait = millis() + 200; 
-//      }
-//     break;
-//   }
-// // switch( p16state ) {
-// //   case 0: 
-// //     if (millis() > wait) p16state++; // wait state
-// //     break;
-// //   case 1: 
-// //     master.query( p16[p16query] ); // send query (only once)
-// //     Serial.println("modbus_querry:"+String(p16query));
-// //     p16state++;
-// // 	p16query++;
-// // 	if (p16query > 16) p16query = 0;
-// //     break;
-// //   case 2:
-// //     master.poll(); // check incoming messages
-// //     if (master.getState() == COM_IDLE) {
-// //       p16state = 0;
-// //       wait = millis() + 50; 
-// //      }
-// //     break;
-// // }
-// // P16_update();
-//   }
-
-
-
-// void GetMessage_old(int addr)
-// {
-//   flag = LOW;
-   
-//     // uint8_t p16state; //!< machine state
-
-//     // uint8_t p16query; //!< pointer to message query
-    
-//       unsigned long u32wait2=millis()+200;
-//        master.query( p16[addr] ); // send query (only once)
-//        master.poll();
-//        int count = 0;
-//       //  Serial.println("modbus_querry:"+String(i)+","+String(millis()));
-//       while (master.getState() != COM_IDLE)
-//         {
-//           // unsigned long u32wait2=millis()+200;
-//           master.poll(); // check incoming messages
-//           // Вот эта штука очень важная. Эти символы вносят некую задержку, чтобы функция считывания прочухалась
-//           // про это нигде не написано, но если их подобрать неправильно почему данные нифига не считываются
-//          delay(20);
-//           // Serial.println("p16.:........"+String(count));
-//           if (millis()>u32wait2)
-//              {
-               
-//                Serial.println("modbus error p16");
-//               //  flag = 1;
-             
-//                return 1;
-//                break;
-//              } 
-//              count++;
-//         }
-
-// }
-    
-//   void GetMessage()
-// {
-// // for ( i = 0; i < 16; i++)
-// // {
-// //   GetMessage_old(i);
-// // }
-// switch( p16state ) {
-//   case 0: 
-//     if (millis() > wait) p16state++; // wait state
-//     break;
-//   case 1: 
-//     master.query( p16[p16query] ); // send query (only once)
-//     Serial.println("modbus_querry:"+String(p16query));
-//     p16state++;
-// 	p16query++;
-// 	if (p16query > 16) p16query = 0;
-//     break;
-//   case 2:
-//     master.poll(); // check incoming messages
-//     if (master.getState() == COM_IDLE) {
-//       p16state = 0;
-//       // wait = millis() + 50; 
-//      }
-//     break;
-// }
-// }
 
 void setup_modbus()
 {
@@ -276,39 +170,7 @@ void setup_modbus()
 
 void loop_modbus()
 {
-//   for ( i = 0; i < 16; i++)
-// {
-//   if (regs_16P[i]!=regs_16P_read[i]/1000)
-//   {
-//     regs_16P[i]=regs_16P_read[i]/1000; /* code */
-//     flag = 0;
-//   }
-// }
 
-  // for ( i = 0; i < 16; i++)
-  // {
-  //   if (regs_16P[i] != regs_16P_in[i])
-  // {
-  //   regs_16P[i]=regs_16P_in[i];
-  //   flag = HIGH;
-  // }
-  // }
-  // if (flag)
-  // {
-  //   // P16_update();
-  //   // P16_update();
-  //   GetMessage();
-  //   // GetMessage();
-  //   flag=LOW;
-  // }
-  
-  // for ( i = 0; i < 8; i++)
-  // {
-  //   /* code */
-  // }
-  
-  
-    // reg_16P[0] = 0;
     int16_t status_1 = reg[2];
     t8A.u[0] = reg[5];
     t8A.u[1] = reg[4];

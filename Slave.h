@@ -217,6 +217,8 @@ void slave_loop()
 {
 
 slave_1.poll(slave_data, sizeof(slave_data)/sizeof(slave_data[0]));
+// slave_3.poll(slave_data_3, sizeof(slave_data_3)/sizeof(slave_data_3[0]));
+
 
   
 

@@ -165,12 +165,14 @@ void zona(){
 {
   flag_Zona[i] = HIGH;
   slave_data[38+i] = HIGH;
+  slave_data_3[38+i] = HIGH;
   // Serial.println("flag_Zona"+String(i)+":"+String (flag_Zona[i])); 
 }
 else
 {
   flag_Zona[i] = LOW;
   slave_data[38+i] = LOW;
+  slave_data_3[38+i] = LOW;
 }
 }
 for (int i = 0; i < 4; i++)
@@ -201,6 +203,7 @@ else
       //  regs_16P[i+12] = LOW;
        bitWrite(regs_16P_read[0],i+12,LOW);
        slave_data[38+i] = LOW;
+       slave_data_3[38+i] = LOW;
     }
   digitalWrite(RELAY_ZONA_1_PIN, LOW);
   digitalWrite(RELAY_ZONA_2_PIN, LOW);
