@@ -123,27 +123,92 @@ void telegram_16P()
 //   }
   // if (millis() > tempus)  io_poll();
  }
-void modbus_up()
-{
- switch( u8state ) {
-  case 0: 
-    if (millis() > u32wait) u8state++; // wait state
-    break;
-  case 1: 
-    master.query( telegram[u8query] ); // send query (only once)
-    // Serial.println("modbus_querry:"+String(u8query));
-    u8state++;
-	u8query++;
-	if (u8query > id_t) u8query = 0;
-    break;
-  case 2:
-    master.poll(); // check incoming messages
-    if (master.getState() == COM_IDLE) {
-      u8state = 0;
-      u32wait = millis() + 200; 
-     }
-    break;
-  }
+// void modbus_up()
+// {
+//  switch( u8state ) {
+//   case 0: 
+//     if (millis() > u32wait) u8state++; // wait state
+//     break;
+//   case 1: 
+//     master.query( telegram[u8query] ); // send query (only once)
+//     // Serial.println("modbus_querry:"+String(u8query));
+//     u8state++;
+// 	u8query++;
+// 	if (u8query > id_t) u8query = 0;
+//     break;
+//   case 2:
+//     master.poll(); // check incoming messages
+//     if (master.getState() == COM_IDLE) {
+//       u8state = 0;
+//       u32wait = millis() + 200; 
+//      }
+//     break;
+//   }
+// // switch( p16state ) {
+// //   case 0: 
+// //     if (millis() > wait) p16state++; // wait state
+// //     break;
+// //   case 1: 
+// //     master.query( p16[p16query] ); // send query (only once)
+// //     Serial.println("modbus_querry:"+String(p16query));
+// //     p16state++;
+// // 	p16query++;
+// // 	if (p16query > 16) p16query = 0;
+// //     break;
+// //   case 2:
+// //     master.poll(); // check incoming messages
+// //     if (master.getState() == COM_IDLE) {
+// //       p16state = 0;
+// //       wait = millis() + 50; 
+// //      }
+// //     break;
+// // }
+// // P16_update();
+//   }
+
+
+
+// void GetMessage_old(int addr)
+// {
+//   flag = LOW;
+   
+//     // uint8_t p16state; //!< machine state
+
+//     // uint8_t p16query; //!< pointer to message query
+    
+//       unsigned long u32wait2=millis()+200;
+//        master.query( p16[addr] ); // send query (only once)
+//        master.poll();
+//        int count = 0;
+//       //  Serial.println("modbus_querry:"+String(i)+","+String(millis()));
+//       while (master.getState() != COM_IDLE)
+//         {
+//           // unsigned long u32wait2=millis()+200;
+//           master.poll(); // check incoming messages
+//           // Вот эта штука очень важная. Эти символы вносят некую задержку, чтобы функция считывания прочухалась
+//           // про это нигде не написано, но если их подобрать неправильно почему данные нифига не считываются
+//          delay(20);
+//           // Serial.println("p16.:........"+String(count));
+//           if (millis()>u32wait2)
+//              {
+               
+//                Serial.println("modbus error p16");
+//               //  flag = 1;
+             
+//                return 1;
+//                break;
+//              } 
+//              count++;
+//         }
+
+// }
+    
+//   void GetMessage()
+// {
+// // for ( i = 0; i < 16; i++)
+// // {
+// //   GetMessage_old(i);
+// // }
 // switch( p16state ) {
 //   case 0: 
 //     if (millis() > wait) p16state++; // wait state
@@ -159,76 +224,11 @@ void modbus_up()
 //     master.poll(); // check incoming messages
 //     if (master.getState() == COM_IDLE) {
 //       p16state = 0;
-//       wait = millis() + 50; 
+//       // wait = millis() + 50; 
 //      }
 //     break;
 // }
-// P16_update();
-  }
-
-
-
-void GetMessage_old(int addr)
-{
-  flag = LOW;
-   
-    // uint8_t p16state; //!< machine state
-
-    // uint8_t p16query; //!< pointer to message query
-    
-      unsigned long u32wait2=millis()+200;
-       master.query( p16[addr] ); // send query (only once)
-       master.poll();
-       int count = 0;
-      //  Serial.println("modbus_querry:"+String(i)+","+String(millis()));
-      while (master.getState() != COM_IDLE)
-        {
-          // unsigned long u32wait2=millis()+200;
-          master.poll(); // check incoming messages
-          // Вот эта штука очень важная. Эти символы вносят некую задержку, чтобы функция считывания прочухалась
-          // про это нигде не написано, но если их подобрать неправильно почему данные нифига не считываются
-         delay(20);
-          // Serial.println("p16.:........"+String(count));
-          if (millis()>u32wait2)
-             {
-               
-               Serial.println("modbus error p16");
-              //  flag = 1;
-             
-               return 1;
-               break;
-             } 
-             count++;
-        }
-
-}
-    
-  void GetMessage()
-{
-// for ( i = 0; i < 16; i++)
-// {
-//   GetMessage_old(i);
 // }
-switch( p16state ) {
-  case 0: 
-    if (millis() > wait) p16state++; // wait state
-    break;
-  case 1: 
-    master.query( p16[p16query] ); // send query (only once)
-    Serial.println("modbus_querry:"+String(p16query));
-    p16state++;
-	p16query++;
-	if (p16query > 16) p16query = 0;
-    break;
-  case 2:
-    master.poll(); // check incoming messages
-    if (master.getState() == COM_IDLE) {
-      p16state = 0;
-      // wait = millis() + 50; 
-     }
-    break;
-}
-}
 
 void setup_modbus()
 {
@@ -251,14 +251,14 @@ void setup_modbus()
   telegram[2].au16reg = regs_16P_read; // pointer to a memory array in the Arduino
   
 
-  for ( i = 0; i < 16; i++)
-  {
-  p16[i].u8id = 16; // slave address
-  p16[i].u8fct = 5; // function code (this one is registers read)
-  p16[i].u16RegAdd = i; // start address in slave
-  p16[i].u16CoilsNo = 1; // number of elements (coils or registers) to read
-  p16[i].au16reg = regs_16P+i; // pointer to a memory array in the Arduino
-  }
+  // for ( i = 0; i < 16; i++)
+  // {
+  // p16[i].u8id = 16; // slave address
+  // p16[i].u8fct = 5; // function code (this one is registers read)
+  // p16[i].u16RegAdd = i; // start address in slave
+  // p16[i].u16CoilsNo = 1; // number of elements (coils or registers) to read
+  // p16[i].au16reg = regs_16P+i; // pointer to a memory array in the Arduino
+  // }
   
   
   // Serial.begin(9600);//use the hardware serial if you want to connect to your computer via usb cable, etc.

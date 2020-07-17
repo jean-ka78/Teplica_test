@@ -78,19 +78,7 @@ void setup() {
   
   setup_modbus();
  
-  // timer.setInterval(50L, Sensor1); 
-  // timer.setInterval(50L, zona); 
-  // timer.setInterval(100L, Light); 
-  // timer.setInterval(400L, write_mb110); 
-  // timer.setInterval(400L, read_mb110_8AC); 
-  // timer.setInterval(100L, modbus_update);
-  // timer.setInterval(50L, slave_loop);
-  timer.setInterval(50L, telegram_8A); 
-  timer.setInterval(50L, telegram_8AC);
-  timer.setInterval(50L, GetMessage);
-  // timer.setInterval(10L, io_poll);  
-  // timer.setInterval(100L, SEND_DATA);  
-  start();
+   start();
 }
 
 void rellay(){
@@ -158,7 +146,7 @@ void loop(){
        telegram_8AC();
       //  GetMessage();
       }
-if(ms - oldmillis3 > 50)
+      if(ms - oldmillis3 > 50)
 	    {
 	      oldmillis3 = ms; 
        telegram_16P();
@@ -174,13 +162,9 @@ if(ms - oldmillis3 > 50)
    loop_modbus();
    Light();
    io_poll();
-  //  slave_loop();
+  
    updateTemp();
    zona();
    rellay();
-  //  GetMessage();
-  //  uart();
-//  picture_loop();
-//  checkEncoder();
-  // slave_1.poll(slave_data, sizeof(slave_data)/sizeof(slave_data[0]));
+  
   }
