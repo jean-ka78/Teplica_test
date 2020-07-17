@@ -119,7 +119,7 @@ if (!relay_svet) {
     bitWrite(regs_16P_read[0],1,relay_svet);
    }
 }
-
+ 
 
 void loop(){
   ms=millis();
