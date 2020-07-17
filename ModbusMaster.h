@@ -107,7 +107,7 @@ void telegram_16P()
           if (millis()>u32wait2)
              {
                
-               Serial.println("modbus error");
+               Serial.println("modbus error 16P");
               //  flag = 1;
              
                return 1;

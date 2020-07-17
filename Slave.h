@@ -6,29 +6,29 @@
 */
 // #include <SimpleModbusSlave.h>
 
-#include <SimpleModbusSlave_DUE.h>
+// #include <SimpleModbusSlave_DUE.h>
 
 
 //////////////////// Макроопределения портов и настройки программы  ///////////////////
-#define TxEnablePin  11	   // Tx/Rx пин RS485
-#define baud         115200  // скоростьобмена по последовательному интерфейсу. (UART)
-#define timeout      200  // Длительность ожидание ответа (таймаут modbus)
-#define polling      300   // скорость опроса по modbus
-#define retry_count  10    // количесво запросов modbus до ошибки и останова обмена
-#define Slave_ID     1     // Адрес Slave устройсва
-// #define LED1         13    // светодиод 1
-// #define LED2         9     // светодиод 2
-// const int  buttonPin = 3;     // номер входа, подключенный к кнопке
-// переменные
-// int buttonState = 0;         // переменная для хранения состояния кнопки
+// #define TxEnablePin  11	   // Tx/Rx пин RS485
+// #define baud         115200  // скоростьобмена по последовательному интерфейсу. (UART)
+// #define timeout      200  // Длительность ожидание ответа (таймаут modbus)
+// #define polling      300   // скорость опроса по modbus
+// #define retry_count  10    // количесво запросов modbus до ошибки и останова обмена
+// #define Slave_ID     1     // Адрес Slave устройсва
+// // #define LED1         13    // светодиод 1
+// // #define LED2         9     // светодиод 2
+// // const int  buttonPin = 3;     // номер входа, подключенный к кнопке
+// // переменные
+// // int buttonState = 0;         // переменная для хранения состояния кнопки
 
 
-#define TxEnablePin_3  0	   // Tx/Rx пин RS485
-#define baud_3         115200  // скоростьобмена по последовательному интерфейсу. (UART)
-#define timeout_3      200  // Длительность ожидание ответа (таймаут modbus)
-#define polling _3     300   // скорость опроса по modbus
-#define retry_count_3  10    // количесво запросов modbus до ошибки и останова обмена
-#define Slave_ID_3     10
+// #define TxEnablePin_3  0	   // Tx/Rx пин RS485
+// #define baud_3         115200  // скоростьобмена по последовательному интерфейсу. (UART)
+// #define timeout_3      200  // Длительность ожидание ответа (таймаут modbus)
+// #define polling _3     300   // скорость опроса по modbus
+// #define retry_count_3  10    // количесво запросов modbus до ошибки и останова обмена
+// #define Slave_ID_3     10
 // Modbus slave_3 (Slave_ID_3,3,TxEnablePin_3); // this is slave @1 and RS-485
 // Modbus slave_1(1, 1, 11);
 unsigned long tempus;
@@ -199,30 +199,34 @@ void slave_setup()
 
 ////////////////
     //////////
-     slave_1.begin( baud );
-    //  slave_3.begin( baud ); // baud-rate at 19200
+     slave_1.begin( 115200 );
+     slave_3.begin( 115200 ); // baud-rate at 19200
     //  tempus = millis() + 100; //Guarda el tiempo actual + 100ms
   //    /////////
  
   //  modbus_configure(&Serial1, baud, SERIAL_8N1, Slave_ID, TxEnablePin, sizeof(slave_data)/sizeof(slave_data[0]), slave_data);
   //  modbus_configure(&Serial1, baud, Slave_ID, TxEnablePin, sizeof(slave_data)/sizeof(slave_data[0]), slave_data);
-   modbus_configure(&Serial3, baud_3, Slave_ID_3, TxEnablePin_3, sizeof(slave_data_3)/sizeof(slave_data_3[0]), slave_data_3);
+  //  modbus_configure(&Serial3, baud_3, Slave_ID_3, TxEnablePin_3, sizeof(slave_data_3)/sizeof(slave_data_3[0]), slave_data_3);
 
   //  modbus_update_comms(baud, SERIAL_8N1, Slave_ID);  
   //  modbus_update_comms(baud, Slave_ID);  
-   modbus_update_comms(baud_3, Slave_ID_3);  
+  //  modbus_update_comms(baud_3, Slave_ID_3);  
 }// конец void setup()
 
 void slave_loop()
 {
 
 slave_1.poll(slave_data, sizeof(slave_data)/sizeof(slave_data[0]));
-// slave_3.poll(slave_data_3, sizeof(slave_data_3)/sizeof(slave_data_3[0]));
+slave_3.poll(slave_data_3, sizeof(slave_data_3)/sizeof(slave_data_3[0]));
 
 
   
+  // Serial.print("in:"+String(slave_3.getInCnt()));
+  // Serial.print(" out:"+String(slave_3.getOutCnt()));
+  // Serial.println(" Err:"+String(slave_3.getErrCnt()));
+ 
 
-  int8_t state_err = modbus_update(); // запуск обмена по Modbus
+  // int8_t state_err = modbus_update(); // запуск обмена по Modbus
 
   
 }// конец void loop()

@@ -132,14 +132,14 @@ void loop(){
         // io_poll();
       }
 
-      if(ms - oldmillis1 > 100)
+      if(ms - oldmillis1 > 200)
 	    {
 	      oldmillis1 = ms; 
        telegram_8A();
       //  telegram_8AC();
       //  GetMessage();
       }
-      if(ms - oldmillis2 > 100)
+      if(ms - oldmillis2 > 300)
 	    {
 	      oldmillis2 = ms; 
       //  telegram_8A();
