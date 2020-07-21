@@ -149,8 +149,8 @@ if (temp_on!=VentTempStart)
     VentTempStart = temp_on;
     Serial.print("tempStart: "+String(slave_data[20]));
     Serial.println(" Label: "+String(VentTempStart));
-    //  EEPROM.write(29, VentTempStart);
-    // EEPROM.end();
+     EEPROM.write(29, VentTempStart);
+    EEPROM.end();
 }
 
 temp_off = slave_data[21];
@@ -159,18 +159,18 @@ if (temp_off!=VentTempStop)
     VentTempStop = temp_off;
      Serial.print("tempstop: "+String(slave_data[21]));
     Serial.println(" Label: "+String(VentTempStop));
-    //  EEPROM.write(30, VentTempStop);
-    // EEPROM.end();
+     EEPROM.write(30, VentTempStop);
+    EEPROM.end();
 }
 
 time_on = slave_data[22];
 if (time_on!=VentTime)
 {
     VentTime = time_on;
-    //  EEPROM.write(31, VentTime);
+     EEPROM.write(31, VentTime);
       Serial.print("venttime: "+String(slave_data[22]));
     Serial.println(" Label: "+String(VentTime));
-    // EEPROM.end();
+    EEPROM.end();
 }
 //  EEPROM.end();
 
@@ -200,7 +200,7 @@ void slave_setup()
 ////////////////
     //////////
      slave_1.begin( 115200 );
-     slave_3.begin( 115200 ); // baud-rate at 19200
+    //  slave_3.begin( 115200 ); // baud-rate at 19200
     //  tempus = millis() + 100; //Guarda el tiempo actual + 100ms
   //    /////////
  
@@ -217,7 +217,7 @@ void slave_loop()
 {
 
 slave_1.poll(slave_data, sizeof(slave_data)/sizeof(slave_data[0]));
-slave_3.poll(slave_data_3, sizeof(slave_data_3)/sizeof(slave_data_3[0]));
+// slave_3.poll(slave_data_3, sizeof(slave_data_3)/sizeof(slave_data_3[0]));
 
 
   

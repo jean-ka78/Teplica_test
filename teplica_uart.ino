@@ -33,8 +33,8 @@ void setup() {
   slave_setup();
   Serial.begin(9600);
    //u8g.setRot180();
-  // Serial3.begin(115200);
-  // setup_uart();
+  Serial3.begin(115200);
+  setup_uart();
   // Serial2.begin(9600);
   // button.begin();
   // enc.begin(); 
@@ -136,6 +136,7 @@ void loop(){
 	    {
 	      oldmillis1 = ms; 
        telegram_8A();
+      //  SEND_DATA();
       //  telegram_8AC();
       //  GetMessage();
       }
@@ -154,6 +155,11 @@ void loop(){
       //  GetMessage();
       }
 
+
+
+
+
+
   // timer.run();
   // zona();
    dt = clock.getDateTime();
@@ -162,7 +168,7 @@ void loop(){
    loop_modbus();
    Light();
    io_poll();
-  
+  uart();
    updateTemp();
    zona();
    rellay();

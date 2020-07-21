@@ -16,7 +16,7 @@ uint8_t u8query; //!< pointer to message query
  */
 Modbus master(0,2,DERE); // this is master and RS-232 or USB-FTDI via software serial
 Modbus slave_1(1, 1, 11);
-Modbus slave_3(10, 3, 0);
+// Modbus slave_3(10, 3, 0);
 /**
  * This is an structe which contains a query to an slave device
  */

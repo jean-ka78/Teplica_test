@@ -14,8 +14,8 @@ struct DATA{
   float t_in_max;
   float t_out_min;
   float t_out_max;
-  int32_t CO2;
-  int32_t lux;
+  // int32_t CO2;
+  // int32_t lux;
   int32_t Time_on;
   int32_t Temp_on;
   int32_t Temp_off;
@@ -76,18 +76,19 @@ void SEND_DATA()
     txdata_u.uart_txdata.Time_on = time_on;
     txdata_u.uart_txdata.Humid = Humid;
     txdata_u.uart_txdata.NH3 = NH3;
-    txdata_u.uart_txdata.CO2 = CO2;
+    // txdata_u.uart_txdata.CO2 = CO2;
     txdata_u.uart_txdata.t_in_max = Tmax_i;
     txdata_u.uart_txdata.t_in_min = Tmin_i;
     txdata_u.uart_txdata.t_out_max = Tmax;
     txdata_u.uart_txdata.t_out_min = Tmin;
     txdata_u.uart_txdata.window = flag_wind;
-    txdata_u.uart_txdata.lux = lux;
+    // txdata_u.uart_txdata.lux = lux;
     txdata_u.uart_txdata.flag_z1 = flag_Zona[0];
     txdata_u.uart_txdata.flag_z2 = flag_Zona[1];
     txdata_u.uart_txdata.flag_z3 = flag_Zona[2];
     txdata_u.uart_txdata.flag_z4 = flag_Zona[3];
     ETout.sendData();
+    // Serial.println(txdata_u.uart_txdata.flag_z1);
     // Serial3.write((uint8_t*)&txdata_u.SEND_ARRAY, sizeof(txdata_u.SEND_ARRAY)); 
 }
 
@@ -105,136 +106,136 @@ void DATA_Resive()
         uint8_t VentTime_t = rxdata_u.uart_rxdata.Vent_time;
         // Serial.println("VentTime_uart: "+String(VentTime_t));  
         
-        if (VentTime_t >= 0 && VentTime_t <= 120)
-        {
-         VentTime = VentTime_t;
-          EEPROM.write(31, VentTime);
-          EEPROM.end(); 
-          if (VentTime!=time_on)
-          {
-            slave_data[22] = VentTime;
-            Serial.println("VentTime: "+String(VentTime)); 
-          }
+        // if (VentTime_t >= 0 && VentTime_t <= 120)
+        // {
+        //  VentTime = VentTime_t;
+        //   EEPROM.write(31, VentTime);
+        //   EEPROM.end(); 
+        //   if (VentTime!=time_on)
+        //   {
+        //     slave_data[22] = VentTime;
+        //     // Serial.println("VentTime: "+String(VentTime)); 
+        //   }
           
-          //  Serial.println("VentTime_write_EEPROM: " + String(VentTime));
-        }
-        else 
-        {
-          VentTime = 10;
-          slave_data[22] = VentTime;
-          Serial.println("VentTime_reed_EEPROM: " + String(VentTime)); 
+        //   //  Serial.println("VentTime_write_EEPROM: " + String(VentTime));
+        // }
+        // else 
+        // {
+        //   VentTime = 10;
+        //   slave_data[22] = VentTime;
+        //   // Serial.println("VentTime_reed_EEPROM: " + String(VentTime)); 
          
-        }
+        // }
          
         float VentTempStart_t = rxdata_u.uart_rxdata.Vent_tstart;
-        if (VentTempStart_t >= 10 && VentTempStart_t <= 40 )
-        {
-           VentTempStart = VentTempStart_t;
-           EEPROM.write(29, VentTempStart);
-           EEPROM.end();
+        // if (VentTempStart_t >= 10 && VentTempStart_t <= 40 )
+        // {
+        //    VentTempStart = VentTempStart_t;
+        //    EEPROM.write(29, VentTempStart);
+        //    EEPROM.end();
            
-           if (VentTempStart!=temp_on)
-           {
-           slave_data[20] = VentTempStart;
-            Serial.println("VentTempStart: " +String(VentTempStart) ); 
-           }
-        }
-        else 
-        {
-         VentTempStart = 30;
-          slave_data[20] = VentTempStart;
-        }
+        //    if (VentTempStart!=temp_on)
+        //    {
+        //    slave_data[20] = VentTempStart;
+        //     // Serial.println("VentTempStart: " +String(VentTempStart) ); 
+        //    }
+        // }
+        // else 
+        // {
+        //  VentTempStart = 30;
+        //   slave_data[20] = VentTempStart;
+        // }
         
         float VentTempStop_t = rxdata_u.uart_rxdata.Vent_tstop;
-        if (VentTempStop_t >= 10 && VentTempStop_t <= 40)
-        {
-          VentTempStop = VentTempStop_t;
-          EEPROM.write(30, VentTempStop);
-           EEPROM.end();
-           if (VentTempStop!=temp_off)
-           {
-          slave_data[21] = VentTempStop;
-           Serial.println("VentTempStop: "+String (VentTempStop)); 
-           }
+        // if (VentTempStop_t >= 10 && VentTempStop_t <= 40)
+        // {
+        //   VentTempStop = VentTempStop_t;
+        //   EEPROM.write(30, VentTempStop);
+        //    EEPROM.end();
+        //    if (VentTempStop!=temp_off)
+        //    {
+        //   slave_data[21] = VentTempStop;
+        //   //  Serial.println("VentTempStop: "+String (VentTempStop)); 
+        //    }
 
-        }
-        else 
-        {
-          VentTempStop = 28;
-          slave_data[21] = VentTempStop;
-        }
+        // }
+        // else 
+        // {
+        //   VentTempStop = 28;
+        //   slave_data[21] = VentTempStop;
+        // }
         
-        EEPROM.end(); 
+        // EEPROM.end(); 
         hour_t = rxdata_u.uart_rxdata.hour;
         minute_t = rxdata_u.uart_rxdata.minute;
         sec_t = rxdata_u.uart_rxdata.second;
         String currentTime = String(dt.hour)+":"+String(dt.minute)+":"+ String(dt.second);
         relay_poliv = rxdata_u.uart_rxdata.relley_poliv;
         bool heat_t = rxdata_u.uart_rxdata.relley_heat;
-        if (heat_t!=heat)
-        {
-          heat=heat_t;
-          Serial.println("heat: "+String (heat)); 
-        }
+        // if (heat_t!=heat)
+        // {
+        //   heat=heat_t;
+        //   Serial.println("heat: "+String (heat)); 
+        // }
         
         relay_svet = rxdata_u.uart_rxdata.lux_relley;
         button_esp = rxdata_u.uart_rxdata.but_esp;
         float U_Temp_u = rxdata_u.uart_rxdata.Temp_z_1;
-if (U_Temp_u!=U_Temp[0])
-{
-  U_Temp[0] = U_Temp_u;
-  s_data.f = U_Temp[0];
-  slave_data[30] = s_data.u[0];
-  slave_data[31] = s_data.u[1];
-}
+// if (U_Temp_u!=U_Temp[0])
+// {
+//   U_Temp[0] = U_Temp_u;
+//   s_data.f = U_Temp[0];
+//   slave_data[30] = s_data.u[0];
+//   slave_data[31] = s_data.u[1];
+// }
 
 
         float U_Temp_u1 = rxdata_u.uart_rxdata.Temp_z_2;
-if (U_Temp_u1!=U_Temp[1])
-{
-  U_Temp[1] = U_Temp_u1;
-  s_data.f = U_Temp[1];
-  slave_data[32] = s_data.u[0];
-  slave_data[33] = s_data.u[1];
-}
+// if (U_Temp_u1!=U_Temp[1])
+// {
+//   U_Temp[1] = U_Temp_u1;
+//   s_data.f = U_Temp[1];
+//   slave_data[32] = s_data.u[0];
+//   slave_data[33] = s_data.u[1];
+// }
         float U_Temp_u2 = rxdata_u.uart_rxdata.Temp_z_3;
-if (U_Temp_u2!=U_Temp[2])
-{
-  U_Temp[2] = U_Temp_u2;
-  s_data.f = U_Temp[2];
-  slave_data[34] = s_data.u[0];
-  slave_data[35] = s_data.u[1];
-}
+// if (U_Temp_u2!=U_Temp[2])
+// {
+//   U_Temp[2] = U_Temp_u2;
+//   s_data.f = U_Temp[2];
+//   slave_data[34] = s_data.u[0];
+//   slave_data[35] = s_data.u[1];
+// }
   float U_Temp_u3 = rxdata_u.uart_rxdata.Temp_z_4;
-if (U_Temp_u3!=U_Temp[3])
-{
-  U_Temp[3] = U_Temp_u3;
-  s_data.f = U_Temp[3];
-  slave_data[36] = s_data.u[0];
-  slave_data[37] = s_data.u[1];
-}
+// if (U_Temp_u3!=U_Temp[3])
+// {
+//   U_Temp[3] = U_Temp_u3;
+//   s_data.f = U_Temp[3];
+//   slave_data[36] = s_data.u[0];
+//   slave_data[37] = s_data.u[1];
+// }
 
-        for (int i = 0; i < 4; i++)
-        {
-          if (U_Temp[i] > 50)
-        {
-          U_Temp[i] = 0;
-        }
-        }
-            // Serial.println(currentTime); 
-        }
-        else
-        {
-          // Serial.println("Нет связи UART ");
-          VentTempStart = 30;
-          // EEPROM.write(29, VentTempStart);
-          VentTempStop = 25;
-          // EEPROM.write(30, VentTempStop);
-           VentTime = 10;
-          // EEPROM.write(31, VentTime);
-          EEPROM.end();
+//         for (int i = 0; i < 4; i++)
+//         {
+//           if (U_Temp[i] > 50)
+//         {
+//           U_Temp[i] = 0;
+//         }
+//         }
+//             // Serial.println(currentTime); 
+//         }
+//         else
+//         {
+//           // Serial.println("Нет связи UART ");
+//           VentTempStart = 30;
+//           // EEPROM.write(29, VentTempStart);
+//           VentTempStop = 25;
+//           // EEPROM.write(30, VentTempStop);
+//            VentTime = 10;
+//           // EEPROM.write(31, VentTime);
+//           EEPROM.end();
 
-        }
+//         }
         // if (rxdata_u.uart_rxdata.but_esp!=0)
         // {
         //   // Serial.println("esp_but: "+String(rxdata_u.uart_rxdata.but_esp));
@@ -243,7 +244,7 @@ if (U_Temp_u3!=U_Temp[3])
         // else
         // {
         //   slave_data[10] = LOW;
-        // }
+        }
         
         
 
