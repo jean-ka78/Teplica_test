@@ -59,20 +59,7 @@ if (slave_data_3[98]!= heat)
 }
 
 void io_poll() {
-   if (slave_data[45]!=heat)
-  {
-    heat= slave_data[45];
-    slave_data_3[98] = slave_data[45];
-    Serial.println("heat_панель:"+String(heat));
-   
-  }
- else if (slave_data_3[98]!= heat)
-{
-  heat = slave_data_3[98];
-  slave_data[45] = slave_data_3[98];
-  Serial.println("heat_ESP:"+String(heat));
-}
-
+  
   
  
   // slave_data[98] = slave_1.getInCnt();
@@ -143,36 +130,13 @@ void io_poll() {
 button_esp = slave_data[10];
 // Serial.print("data20: "+String(slave_data[20]));
 temp_on = slave_data[20];
-slave_data_3[93] = temp_on;
-if (temp_on!=VentTempStart)
-{
-    VentTempStart = temp_on;
-    Serial.print("tempStart: "+String(slave_data[20]));
-    Serial.println(" Label: "+String(VentTempStart));
-     EEPROM.write(29, VentTempStart);
-    EEPROM.end();
-}
+
 
 temp_off = slave_data[21];
-if (temp_off!=VentTempStop)
-{
-    VentTempStop = temp_off;
-     Serial.print("tempstop: "+String(slave_data[21]));
-    Serial.println(" Label: "+String(VentTempStop));
-     EEPROM.write(30, VentTempStop);
-    EEPROM.end();
-}
+
 
 time_on = slave_data[22];
-if (time_on!=VentTime)
-{
-    VentTime = time_on;
-     EEPROM.write(31, VentTime);
-      Serial.print("venttime: "+String(slave_data[22]));
-    Serial.println(" Label: "+String(VentTime));
-    EEPROM.end();
-}
-//  EEPROM.end();
+
 
 s_data.u[0] = slave_data[30];
 s_data.u[1] = slave_data[31];

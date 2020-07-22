@@ -154,7 +154,13 @@ void loop(){
       //  telegram_8AC();
       //  GetMessage();
       }
-
+if(ms - oldmillis4 > 5000)
+	    {
+	      oldmillis4 = ms; 
+       up_uart();
+      //  telegram_8AC();
+      //  GetMessage();
+      }
 
 
 
@@ -168,7 +174,7 @@ void loop(){
    loop_modbus();
    Light();
    io_poll();
-  uart();
+   uart();
    updateTemp();
    zona();
    rellay();

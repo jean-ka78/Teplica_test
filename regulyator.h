@@ -210,6 +210,134 @@ else
   digitalWrite(RELAY_ZONA_3_PIN, LOW);
   digitalWrite(RELAY_ZONA_4_PIN, LOW);
   }
-  
+ 
+}
+
+void up_uart(){
+
+
+if (temp_on!=VentTempStart)
+{
+    VentTempStart = temp_on;
+    VentTempStart_t = temp_on;
+    Serial.print("tempStart: "+String(slave_data[20]));
+    Serial.println(" Label: "+String(VentTempStart));
+     EEPROM.write(29, VentTempStart);
+    EEPROM.end();
+}
+if (temp_off!=VentTempStop)
+{
+    VentTempStop = temp_off;
+    VentTempStop_t = temp_off;
+     Serial.print("tempstop: "+String(slave_data[21]));
+    Serial.println(" Label: "+String(VentTempStop));
+     EEPROM.write(30, VentTempStop);
+    EEPROM.end();
+}
+if (time_on!=VentTime)
+{
+    VentTime = time_on;
+    VentTime_t = time_on;
+     EEPROM.write(31, VentTime);
+      Serial.print("venttime: "+String(slave_data[22]));
+    Serial.println(" Label: "+String(VentTime));
+    EEPROM.end();
+}
+//  EEPROM.end();
+
+ if (slave_data[45]!=heat)
+  {
+    heat = slave_data[45];
+    heat_t = slave_data[45];
+    // slave_data_3[98] = slave_data[45];
+    Serial.println("heat_панель:"+String(heat));
+   }
+ 
+  // Serial.println("VentTime_uart: "+String(VentTime_t));  
+        
+        if (VentTime_t >= 0 && VentTime_t <= 120)
+        {
+         VentTime = VentTime_t;
+          EEPROM.write(31, VentTime);
+          EEPROM.end(); 
+          if (VentTime!=time_on)
+          {
+            slave_data[22] = VentTime;
+            // Serial.println("VentTime: "+String(VentTime)); 
+          }
+          
+          //  Serial.println("VentTime_write_EEPROM: " + String(VentTime));
+        }
+        else 
+        {
+          VentTime = 10;
+          slave_data[22] = VentTime;
+          // Serial.println("VentTime_reed_EEPROM: " + String(VentTime)); 
+         
+        }
+        if (VentTempStart_t >= 10 && VentTempStart_t <= 40 )
+        {
+           VentTempStart = VentTempStart_t;
+           EEPROM.write(29, VentTempStart);
+           EEPROM.end();
+           
+           if (VentTempStart!=temp_on)
+           {
+           slave_data[20] = VentTempStart;
+            // Serial.println("VentTempStart: " +String(VentTempStart) ); 
+           }
+        }
+        else 
+        {
+         VentTempStart = 30;
+          slave_data[20] = VentTempStart;
+        }
+         if (VentTempStop_t >= 10 && VentTempStop_t <= 40)
+        {
+          VentTempStop = VentTempStop_t;
+          EEPROM.write(30, VentTempStop);
+           EEPROM.end();
+           if (VentTempStop!=temp_off)
+           {
+          slave_data[21] = VentTempStop;
+          //  Serial.println("VentTempStop: "+String (VentTempStop)); 
+           }
+
+        }
+        else 
+        {
+          VentTempStop = 28;
+          slave_data[21] = VentTempStop;
+        }
+        
+        EEPROM.end(); 
+        if (U_Temp_u!=U_Temp[0])
+{
+  U_Temp[0] = U_Temp_u;
+  s_data.f = U_Temp[0];
+  slave_data[30] = s_data.u[0];
+  slave_data[31] = s_data.u[1];
+}
+if (U_Temp_u1!=U_Temp[1])
+{
+  U_Temp[1] = U_Temp_u1;
+  s_data.f = U_Temp[1];
+  slave_data[32] = s_data.u[0];
+  slave_data[33] = s_data.u[1];
+}
+if (U_Temp_u2!=U_Temp[2])
+{
+  U_Temp[2] = U_Temp_u2;
+  s_data.f = U_Temp[2];
+  slave_data[34] = s_data.u[0];
+  slave_data[35] = s_data.u[1];
+}
+if (U_Temp_u3!=U_Temp[3])
+{
+  U_Temp[3] = U_Temp_u3;
+  s_data.f = U_Temp[3];
+  slave_data[36] = s_data.u[0];
+  slave_data[37] = s_data.u[1];
+}
 
 }

@@ -85,9 +85,17 @@ float AlarmTempStop;  //Температура Выключения
 int32_t VentTempStart = 25; //Температура открытия окон
 int32_t temp_on;
 int32_t VentTempStop = 24; //Температура закрытия окон
+uint8_t VentTime_t;
+float VentTempStop_t;
+float VentTempStart_t;
+float U_Temp_u;
+float U_Temp_u1;
+float U_Temp_u2;
+float U_Temp_u3;
 int32_t temp_off;
 int32_t VentTime = 5;    //Время открытия
 int8_t time_on;
+bool heat_t;
 #define DELAY_StartMenu 10000UL // время блокировки кнопок при бездействии
 // Флаги
 uint8_t flag_AutoManual;
@@ -137,6 +145,7 @@ int  button_esp;
 long oldPosition  = -999;
 // Флаги выходных устройств
 boolean heat = false;
+boolean heat_esp = false;
 // boolean svet = false;
 boolean flag_RELAY1 = false;
 boolean flag_A_logicRegulatorT = false;
