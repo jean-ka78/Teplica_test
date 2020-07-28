@@ -12,12 +12,12 @@ void closewindows(){
    slave_data[40] = 2;
   //  GetMessage_old(1);
    telegram_16P();
-    if (run)
-     {
-     slave_loop();
-     Serial.println("RUN_close");
-     run = false;
-     }
+    // if (run)
+    //  {
+    //  slave_loop();
+    //  Serial.println("RUN_close");
+    //  run = false;
+    //  }
   
    flag_RELAY4_Vent = true;
     Serial.println("окна закрываются");
@@ -52,12 +52,12 @@ void openwindows()
      bitWrite(regs_16P_read[0],0,HIGH);
     //  GetMessage_old(0);
      telegram_16P();
-     if (run)
-     {
-     slave_loop();
-     Serial.println("RUN_open");
-     run = false;
-     }
+    //  if (run)
+    //  {
+    //  slave_loop();
+    //  Serial.println("RUN_open");
+    //  run = false;
+    //  }
      
      
      flag_RELAY3_Vent = true;
