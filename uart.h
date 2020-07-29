@@ -19,6 +19,7 @@ struct DATA{
   int32_t Time_on;
   int32_t Temp_on;
   int32_t Temp_off;
+  bool heat_t;
   bool window;
   bool flag_z1;
   bool flag_z2;
@@ -31,7 +32,7 @@ struct DATA{
 union uart_t
 {
 DATA uart_txdata;
-byte SEND_ARRAY[62];
+byte SEND_ARRAY[64];
 };
 
 uart_t txdata_u;
@@ -71,9 +72,9 @@ void SEND_DATA()
     txdata_u.uart_txdata.Temp3 = Temp[2];
     txdata_u.uart_txdata.Temp4 = Temp[3];
     txdata_u.uart_txdata.Temp5 = Temp_out;
-    txdata_u.uart_txdata.Temp_on = temp_on;
-    txdata_u.uart_txdata.Temp_off = temp_off;
-    txdata_u.uart_txdata.Time_on = time_on;
+    txdata_u.uart_txdata.Temp_on = VentTempStart_t;
+    txdata_u.uart_txdata.Temp_off = VentTempStop_t;
+    txdata_u.uart_txdata.Time_on = VentTime_t;
     txdata_u.uart_txdata.Humid = Humid;
     txdata_u.uart_txdata.NH3 = NH3;
     // txdata_u.uart_txdata.CO2 = CO2;
@@ -83,6 +84,7 @@ void SEND_DATA()
     txdata_u.uart_txdata.t_out_min = Tmin;
     txdata_u.uart_txdata.window = flag_wind;
     // txdata_u.uart_txdata.lux = lux;
+    txdata_u.uart_txdata.heat_t = heat;
     txdata_u.uart_txdata.flag_z1 = flag_Zona[0];
     txdata_u.uart_txdata.flag_z2 = flag_Zona[1];
     txdata_u.uart_txdata.flag_z3 = flag_Zona[2];

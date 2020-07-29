@@ -1,5 +1,5 @@
-#include <EEPROM.h>         
-// #include "EEPROMAnything.h" // http://playground.arduino.cc/Code/EEPROMWriteAnything
+// #include <EEPROM.h>         
+#include "EEPROMAnything.h" // http://playground.arduino.cc/Code/EEPROMWriteAnything
 
 // Функция чтения данных из Энергонезовисимой памяти EEPROM
 void EEPROM_READ()

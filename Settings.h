@@ -83,18 +83,19 @@ int8_t Delta; //=2;
 float AlarmTempStart; //Температура Включения
 float AlarmTempStop;  //Температура Выключения
 int32_t VentTempStart = 25; //Температура открытия окон
-int32_t temp_on;
+
 int32_t VentTempStop = 24; //Температура закрытия окон
-uint8_t VentTime_t;
-float VentTempStop_t;
-float VentTempStart_t;
+uint8_t VentTime_t; //Время открытия окон с Блинк
+float VentTempStop_t; //Температура закрытия окон с Блинк
+float VentTempStart_t; // Температура открытия окон с Блинк
 float U_Temp_u;
 float U_Temp_u1;
 float U_Temp_u2;
 float U_Temp_u3;
-int32_t temp_off;
+int32_t temp_on; //Температура открытия окон с Панели
+int32_t temp_off; //Температура закрытия окон с Панели
 int32_t VentTime = 5;    //Время открытия
-int8_t time_on;
+int8_t time_on; // время закрытия окон с Панели
 bool heat_t;
 #define DELAY_StartMenu 10000UL // время блокировки кнопок при бездействии
 // Флаги

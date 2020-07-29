@@ -130,11 +130,7 @@ void io_poll() {
 button_esp = slave_data[10];
 // Serial.print("data20: "+String(slave_data[20]));
 temp_on = slave_data[20];
-
-
 temp_off = slave_data[21];
-
-
 time_on = slave_data[22];
 
 
