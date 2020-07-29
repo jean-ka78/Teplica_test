@@ -102,8 +102,9 @@ bool heat_t;
 uint8_t flag_AutoManual;
 uint8_t flag_TableStop = true;
 bool isFirstConnect  = true;
-bool closeWindows = true;
-bool openWindows = true;
+bool close = true;
+bool open = true;
+ bool run = true;
 //            Данные хранятся в EEPROM            //
 ////////////////////////////////////////////////////
 

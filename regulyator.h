@@ -3,15 +3,15 @@
  unsigned long newtime = 0;
  unsigned long newtime1 = 0;
 void closewindows(){
-  bool run = true;
-  while (closeWindows){ 
+  // bool run = true;
+  // while (close){ 
   if(!flag_RELAY4_Vent){
    digitalWrite(RELAY4PIN, LOW);
   //  regs_16P[1] = HIGH;
    bitWrite(regs_16P_read[0],1,HIGH);
    slave_data[40] = 2;
   //  GetMessage_old(1);
-   telegram_16P();
+  //  telegram_16P();
     // if (run)
     //  {
     //  slave_loop();
@@ -22,7 +22,7 @@ void closewindows(){
    flag_RELAY4_Vent = true;
     Serial.println("окна закрываются");
    new_time = millis() + (VentTime*1000);
-   flag_wind = false;
+   
  }
   else if(millis() > new_time) {
      digitalWrite(RELAY4PIN, HIGH);
@@ -35,16 +35,17 @@ void closewindows(){
      slave_loop();
      flag_RELAY4_Vent = false;
      Serial.println("окна закрыты");
-     closeWindows = false;
-     openWindows = true;
+     close = false;
+     run = false;
+     open = true;
+     flag_wind = false;
   }
- } 
+//  } 
 }
 void openwindows()
 {
-  bool run = true;
-   while (openWindows)
-   {
+  // bool run = true;
+  //  while (openWindows)   {
     if(!flag_RELAY3_Vent){
      digitalWrite(RELAY3PIN, LOW);// Включить реле
       slave_data[40] = 3;
@@ -74,12 +75,12 @@ void openwindows()
         slave_loop();
         flag_RELAY3_Vent = false;
         flag_wind = true;
-        openWindows = false;
-        closeWindows = true;
+        open = false;
+        close = true;
         run = false; 
         Serial.println("окна открыты");
         }
-}
+// }
 }
  void VentTemp(int PINon, int PINoff, float Tin, float VentStart, float VentStop){
   //  Serial.println("Tin:"+String(Tin));
@@ -121,7 +122,13 @@ void start()
     // modbus_update();
     loop_modbus();
     VentTime = 5;
-    closewindows();
+   
+    while (run)
+    {
+       closewindows();/* code */
+    }
+    
+   
     Tmin = 50.00;
     Tmax = -50.00;
     Tmax_i = -50.00;
