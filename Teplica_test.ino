@@ -128,7 +128,7 @@ void loop(){
 	    {
 	      oldmillis = ms; 
         //  telegram_8A();
-        slave_loop();
+        // slave_loop();
         // io_poll();
       }
 
@@ -162,10 +162,6 @@ if(ms - oldmillis4 > 2000)
       //  GetMessage();
       }
 
-
-
-
-
   // timer.run();
   // zona();
    dt = clock.getDateTime();
@@ -178,5 +174,6 @@ if(ms - oldmillis4 > 2000)
    updateTemp();
    zona();
    rellay();
+   slave_loop();
   
   }
