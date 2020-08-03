@@ -1,5 +1,5 @@
 {
-    "port": "COM12",
+    "port": "/dev/ttyUSB0",
     "board": "arduino:avr:mega",
     "configuration": "cpu=atmega2560",
     "programmer": "AVR ISP",
