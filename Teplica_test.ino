@@ -132,7 +132,7 @@ void loop(){
         // io_poll();
       }
 
-      if(ms - oldmillis1 > 200)
+      if(ms - oldmillis1 > 250)
 	    {
 	      oldmillis1 = ms; 
        telegram_8A();
@@ -140,21 +140,21 @@ void loop(){
       //  telegram_8AC();
       //  GetMessage();
       }
-      if(ms - oldmillis2 > 300)
+      if(ms - oldmillis2 > 350)
 	    {
 	      oldmillis2 = ms; 
       //  telegram_8A();
        telegram_8AC();
       //  GetMessage();
       }
-      if(ms - oldmillis3 > 50)
+      if(ms - oldmillis3 > 250)
 	    {
 	      oldmillis3 = ms; 
        telegram_16P();
       //  telegram_8AC();
       //  GetMessage();
       }
-if(ms - oldmillis4 > 5000)
+if(ms - oldmillis4 > 2000)
 	    {
 	      oldmillis4 = ms; 
        up_uart();

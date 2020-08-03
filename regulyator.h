@@ -9,9 +9,9 @@ void closewindows(){
    digitalWrite(RELAY4PIN, LOW);
   //  regs_16P[1] = HIGH;
    bitWrite(regs_16P_read[0],1,HIGH);
-   slave_data[40] = 2;
+   slave_data[45] = 2;
   //  GetMessage_old(1);
-  //  telegram_16P();
+   telegram_16P();
     // if (run)
     //  {
     //  slave_loop();
@@ -28,7 +28,7 @@ void closewindows(){
      digitalWrite(RELAY4PIN, HIGH);
     //  regs_16P[1] = LOW;
      bitWrite(regs_16P_read[0],1,LOW);
-     slave_data[40] = 0;
+     slave_data[45] = 0;
     //  GetMessage();
     //  GetMessage_old(1);
      telegram_16P();
@@ -48,7 +48,7 @@ void openwindows()
   //  while (openWindows)   {
     if(!flag_RELAY3_Vent){
      digitalWrite(RELAY3PIN, LOW);// Включить реле
-      slave_data[40] = 3;
+      slave_data[45] = 3;
     //  regs_16P[0]= HIGH;
      bitWrite(regs_16P_read[0],0,HIGH);
     //  GetMessage_old(0);
@@ -69,7 +69,7 @@ void openwindows()
         digitalWrite(RELAY3PIN, HIGH);
         // regs_16P[0] = LOW;
         bitWrite(regs_16P_read[0],0,LOW);
-        slave_data[40] = 1;
+        slave_data[45] = 1;
         //  GetMessage_old(0);
          telegram_16P();
         slave_loop();
@@ -88,11 +88,11 @@ void openwindows()
   // Если текущая температура больше или равно Температуры открытия и окно закрыто
   if (!isFirstConnect)
   {
-     if (Tin > VentStart&&!flag_wind&&!flag_RELAY4_Vent)  {
+     if (Tin > VentStart&&!flag_wind&&!flag_RELAY4_Vent&&VentStart>VentStop)  {
       openwindows();
 
    } 
-  if (Tin < VentStop && flag_wind && !flag_RELAY3_Vent)
+  if (Tin < VentStop && flag_wind && !flag_RELAY3_Vent && VentStart>VentStop)
   {  closewindows(); }  
   }
   }
@@ -101,22 +101,22 @@ void start()
 {
   while (isFirstConnect)
   {
-    for ( i = 0; i < 16; i++)
-    {
-      bitWrite(regs_16P_read[0],i,LOW);
-      regs_8AC[i]=0;
-    }
+    // for ( i = 0; i < 16; i++)
+    // {
+    //   bitWrite(regs_16P_read[0],i,LOW);
+    //   regs_8AC[i]=0;
+    // }
     if (VentTempStart!=temp_on)
     {
-    slave_data[20] = VentTempStart;
+    slave_data[25] = VentTempStart;
     }
     if (VentTempStop!=temp_off)
     {
-    slave_data[21] = VentTempStop;
+    slave_data[26] = VentTempStop;
     }
     if (VentTime!=time_on)
     {
-    slave_data[22] = VentTime;
+    slave_data[27] = VentTime;
     }
     
     // modbus_update();
@@ -227,16 +227,16 @@ if (temp_on!=VentTempStart)
 {
     VentTempStart = temp_on;
     VentTempStart_t = temp_on;
-    Serial.print("tempStart: "+String(slave_data[20]));
+    Serial.print("tempStart: "+String(slave_data[25]));
     Serial.println(" Label: "+String(VentTempStart));
-     EEPROM.update(29, VentTempStart);
+    EEPROM.update(29, VentTempStart);
     // EEPROM.end();
 }
 if (temp_off!=VentTempStop)
 {
     VentTempStop = temp_off;
     VentTempStop_t = temp_off;
-     Serial.print("tempstop: "+String(slave_data[21]));
+     Serial.print("tempstop: "+String(slave_data[26]));
     Serial.println(" Label: "+String(VentTempStop));
      EEPROM.update(30, VentTempStop);
     // EEPROM.end();
@@ -246,16 +246,16 @@ if (time_on!=VentTime)
     VentTime = time_on;
     VentTime_t = time_on;
      EEPROM.update(31, VentTime);
-      Serial.print("venttime: "+String(slave_data[22]));
+      Serial.print("venttime: "+String(slave_data[27]));
     Serial.println(" Label: "+String(VentTime));
     // EEPROM.end();
 }
 //  EEPROM.end();
 
- if (slave_data[45]!=heat)
+ if (slave_data[46]!=heat)
   {
-    heat = slave_data[45];
-    heat_t = slave_data[45];
+    heat = slave_data[46];
+    heat_t = slave_data[46];
     // slave_data_3[98] = slave_data[45];
     Serial.println("heat_панель:"+String(heat));
    }
@@ -267,7 +267,7 @@ if (time_on!=VentTime)
         
           if (VentTime_t!=VentTime)
           {
-            slave_data[22] = VentTime_t;
+            slave_data[27] = VentTime_t;
              VentTime = VentTime_t;
           EEPROM.update(31, VentTime);
           // EEPROM.end(); 
@@ -279,7 +279,7 @@ if (time_on!=VentTime)
         else 
         {
           VentTime = 10;
-          slave_data[22] = VentTime;
+          slave_data[27] = VentTime;
           VentTime_t = VentTime;
           // Serial.println("VentTime_reed_EEPROM: " + String(VentTime)); 
          
@@ -290,7 +290,7 @@ if (time_on!=VentTime)
            
            if (VentTempStart!=VentTempStart_t)
            {
-           slave_data[20] = VentTempStart_t; 
+           slave_data[25] = VentTempStart_t; 
            VentTempStart = VentTempStart_t;
            EEPROM.update(29, VentTempStart);
           //  EEPROM.end();
@@ -300,7 +300,7 @@ if (time_on!=VentTime)
         else 
         {
          VentTempStart = 30;
-          slave_data[20] = VentTempStart;
+          slave_data[25] = VentTempStart;
           VentTempStart_t = VentTempStart;
         }
          if (VentTempStop_t >= 10 && VentTempStop_t <= 40)
@@ -308,7 +308,7 @@ if (time_on!=VentTime)
           
            if (VentTempStop!=VentTempStop_t)
            {
-          slave_data[21] = VentTempStop_t;
+          slave_data[26] = VentTempStop_t;
           VentTempStop = VentTempStop_t;
           EEPROM.update(30, VentTempStop);
           //  EEPROM.end();
@@ -319,7 +319,7 @@ if (time_on!=VentTime)
         else 
         {
           VentTempStop = 28;
-          slave_data[21] = VentTempStop;
+          slave_data[26] = VentTempStop;
           VentTempStop_t = VentTempStop;
         }
         
