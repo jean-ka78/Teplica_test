@@ -9,7 +9,7 @@ uint16_t regs_16P_in[16];//Массив 16Р
 uint16_t regs_16P_read[50];//Массив 16Р
 uint16_t reg[29]; // Массив 8А
 uint16_t regs_8AC[16]; // Массив 8АС
-uint16_t slave_data[100]; // Массив Панели
+uint16_t slave_data[2000]; // Массив Панели
 // u16 slave_data[100];
 uint16_t slave_data_3[250]; //Массив ESP
 uint16_t regs_PLK[100]; //Массив ПЛК 
@@ -88,15 +88,16 @@ int32_t VentTempStop = 24; //Температура закрытия окон
 uint8_t VentTime_t; //Время открытия окон с Блинк
 float VentTempStop_t; //Температура закрытия окон с Блинк
 float VentTempStart_t; // Температура открытия окон с Блинк
-float U_Temp_u;
-float U_Temp_u1;
-float U_Temp_u2;
-float U_Temp_u3;
+
+// float U_Temp_u;
+// float U_Temp_u1;
+// float U_Temp_u2;
+// float U_Temp_u3;
 int32_t temp_on; //Температура открытия окон с Панели
 int32_t temp_off; //Температура закрытия окон с Панели
 int32_t VentTime = 5;    //Время открытия
 int8_t time_on; // время закрытия окон с Панели
-bool heat_t;
+bool heat_uart;
 #define DELAY_StartMenu 10000UL // время блокировки кнопок при бездействии
 // Флаги
 uint8_t flag_AutoManual;
@@ -121,7 +122,9 @@ float U_Temp1 = 18; // Уставка температуры зона 1
 float U_Temp2 = 18; // Уставка температуры зона 2
 float U_Temp3 = 18; // Уставка температуры зона 3
 float U_Temp4 = 18; // Уставка температуры зона 4
-float U_Temp[4];
+int16_t U_Temp[4];  // Уставка температуры зона Контроллер
+int16_t U_Temp_P[4]; // Уставка температуры зона Панель
+int16_t U_Temp_u[4]; // Уставка температуры зона Blynk
 float NH3 = 0;
 int16_t CO2 = 0;
 

@@ -126,13 +126,13 @@ void telegram_16P()
 
 void setup_modbus()
 {
-  telegram[0].u8id = 8; // slave address 8 my 32 work
+  telegram[0].u8id = 32; // slave address 8 my 32 work
   telegram[0].u8fct = 3; // function code (this one is registers read)
   telegram[0].u16RegAdd = 0x000; // start address in slave
   telegram[0].u16CoilsNo = 0x001D; // number of elements (coils or registers) to read
   telegram[0].au16reg = reg; // pointer to a memory array in the Arduino
 // telegram 1: write a single register
-  telegram[1].u8id = 10; // slave address 10 my 48 work
+  telegram[1].u8id = 48; // slave address 10 my 48 work
   telegram[1].u8fct = 3; // function code (this one is write a single register 6)
   telegram[1].u16RegAdd = 0x100; // start address in slave
   telegram[1].u16CoilsNo = 7; // number of elements (coils or registers) to read
@@ -239,8 +239,8 @@ void loop_modbus()
  int16_t I_out8 = regs_8AC[7];
 
  float RH = (I_out1-4)/16*100;
- float res = I_out1/10.00;
- float res1 = I_out2/10.00;
+ float res = I_out3/10.00;
+ float res1 = I_out4/10.00;
  Humid = res;
  NH3 = res1;
   // Serial.print("1: "+String(reg_8AC[2]));

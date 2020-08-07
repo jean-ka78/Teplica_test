@@ -117,7 +117,7 @@ void DATA_Resive()
         sec_t = rxdata_u.uart_rxdata.second;
         String currentTime = String(dt.hour)+":"+String(dt.minute)+":"+ String(dt.second);
         relay_poliv = rxdata_u.uart_rxdata.relley_poliv;
-        heat_t = rxdata_u.uart_rxdata.relley_heat;
+        heat_uart = rxdata_u.uart_rxdata.relley_heat;
         // if (heat_t!=heat)
         // {
         //   heat=heat_t;
@@ -126,15 +126,10 @@ void DATA_Resive()
         
         relay_svet = rxdata_u.uart_rxdata.lux_relley;
         button_esp = rxdata_u.uart_rxdata.but_esp;
-        U_Temp_u = rxdata_u.uart_rxdata.Temp_z_1;
-
-
-
-        U_Temp_u1 = rxdata_u.uart_rxdata.Temp_z_2;
-
-        U_Temp_u2 = rxdata_u.uart_rxdata.Temp_z_3;
-
-        U_Temp_u3 = rxdata_u.uart_rxdata.Temp_z_4;
+        U_Temp_u[0]  = rxdata_u.uart_rxdata.Temp_z_1;
+        U_Temp_u[1] = rxdata_u.uart_rxdata.Temp_z_2;
+        U_Temp_u[2] = rxdata_u.uart_rxdata.Temp_z_3;
+        U_Temp_u[3] = rxdata_u.uart_rxdata.Temp_z_4;
 
 //         for (int i = 0; i < 4; i++)
 //         {

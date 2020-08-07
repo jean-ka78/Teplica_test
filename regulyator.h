@@ -145,19 +145,7 @@ void start()
 
 void vent()
 {
-  // if (VentTempStart != temp_on )
-  // {
-  //   VentTempStart = temp_on;
-  // }
-  // if (VentTempStop != temp_off )
-  // {
-  //   VentTempStop = temp_off;
-  // }
-  // if (VentTime != time_on )
-  // {
-  //   VentTime = time_on;
-  // }
-  VentTemp(RELAY3PIN, RELAY4PIN, Temp_in, VentTempStart, VentTempStop); 
+    VentTemp(RELAY3PIN, RELAY4PIN, Temp_in, VentTempStart, VentTempStop); 
 }
 
 //Обогрев
@@ -255,7 +243,7 @@ if (time_on!=VentTime)
  if (slave_data[46]!=heat)
   {
     heat = slave_data[46];
-    heat_t = slave_data[46];
+    heat_uart = slave_data[46];
     // slave_data_3[98] = slave_data[45];
     Serial.println("heat_панель:"+String(heat));
    }
@@ -324,13 +312,35 @@ if (time_on!=VentTime)
         }
         
 EEPROM.end(); 
-//         if (U_Temp_u!=U_Temp[0])
-// {
-//   U_Temp[0] = U_Temp_u;
-//   s_data.f = U_Temp[0];
-//   slave_data[30] = s_data.u[0];
-//   slave_data[31] = s_data.u[1];
-// }
+ 
+        for (size_t i = 0; i < 4; i++)
+        {
+         if (U_Temp_P[i]!=U_Temp[i])
+{
+  U_Temp[i] = U_Temp_P[i];
+  U_Temp_u[i] = U_Temp_P[i];
+}
+}
+
+
+if (heat_uart!=heat)
+  {
+    heat = heat_uart;
+    slave_data[46] = heat_uart;
+    // slave_data_3[98] = slave_data[45];
+    Serial.println("heat_панель:"+String(heat));
+    Serial.println("heat_uart:"+String(heat_uart));
+   }
+        
+        for (size_t i = 0; i < 4; i++)
+        {
+         if (U_Temp_u[i]!=U_Temp[i])
+{
+  U_Temp[i] = U_Temp_u[i];
+  slave_data[i+30] = U_Temp_u[i];
+ 
+}
+}
 // if (U_Temp_u1!=U_Temp[1])
 // {
 //   U_Temp[1] = U_Temp_u1;

@@ -134,18 +134,10 @@ temp_off = slave_data[26];
 time_on = slave_data[27];
 
 
-s_data.u[0] = slave_data[30];
-s_data.u[1] = slave_data[31];
-U_Temp[0] = s_data.f;
-s_data.u[0] = slave_data[32];
-s_data.u[1] = slave_data[33];
-U_Temp[1] = s_data.f;
-s_data.u[0] = slave_data[34];
-s_data.u[1] = slave_data[35];
-U_Temp[2] = s_data.f;
-s_data.u[0] = slave_data[36];
-s_data.u[1] = slave_data[37];
-U_Temp[3] = s_data.f;
+U_Temp_P[0] = slave_data[30];
+U_Temp_P[1] = slave_data[31];
+U_Temp_P[2] = slave_data[32];
+U_Temp_P[3] = slave_data[33];
 
 
 
